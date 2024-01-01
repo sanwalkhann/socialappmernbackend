@@ -50,7 +50,7 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     // successRedirect: 'http://localhost:3000/dashboard',
-    failureRedirect: "http://localhost:3000/register",
+    failureRedirect: "https://socialappmernfrontend.vercel.app//register",
   }),
   async (req, res) => {
     const { user } = req;
@@ -63,9 +63,9 @@ app.get(
         queryParams.append("email", user.email);
         queryParams.append("username", user.name.givenName);
         console.log(queryParams);
-        return res.redirect(`http://localhost:3000/dashboard?${queryParams}`);
+        return res.redirect(`https://socialappmernfrontend.vercel.app/dashboard?${queryParams}`);
       } else {
-        res.redirect("http://localhost:3000/register");
+        res.redirect("https://socialappmernfrontend.vercel.app/register");
       }
     } catch (error) {
       console.error("Error during Google authentication:", error);

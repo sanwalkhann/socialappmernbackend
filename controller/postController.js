@@ -30,18 +30,15 @@ const likePost = async (req, res) => {
   console.log(userId);
 
   const postfound = await Post.findOne({ productId: postId })
-  // console.log(postfound)
   if (postfound) {
     const userIndex = postfound.likedBy.findIndex(user => user.toString() === userId.toString());
     console.log('index...', userIndex);
     if (userIndex !== -1) {
-      // User found in likedBy, meaning the user wants to unlike the post
       postfound.likesCount -= 1;
       postfound.likedBy.splice(userIndex, 1);
       await postfound.save();
       return res.json(postfound);
     } else {
-      // User not found in likedBy, meaning the user wants to like the post
       postfound.likesCount += 1;
       postfound.likedBy.push(userId);
       await postfound.save();
@@ -55,20 +52,7 @@ const likePost = async (req, res) => {
    })
    return res.json(post)
   
-  try {
-
-    
-    const post = await Post.findOne();
-
-    if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
-    }
-
-    // Rest of your code for liking the post...
-  } catch (error) {
-    console.error('Error liking post:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+ 
 };
 
 
